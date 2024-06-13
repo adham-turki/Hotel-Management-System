@@ -1,6 +1,8 @@
 package com.example.Hotel.services.imp;
 
 import com.example.Hotel.entities.Billing;
+import com.example.Hotel.exception.BadRequestException;
+import com.example.Hotel.exception.ResourceNotFoundException;
 import com.example.Hotel.repositories.BillingRepository;
 import com.example.Hotel.services.BillingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,27 +19,36 @@ public class BillingServiceImpl implements BillingService {
 
     @Override
     public Billing createBilling(Billing billing) {
+        if (billing == null || billing.getId() == null || billing.getAmount() <= 0) {
+            throw new BadRequestException("Billing", "Amount");
+        }
         return billingRepository.save(billing);
     }
 
     @Override
     public Billing updateBilling(Billing billing) {
+        if (billing == null || billing.getId() == null) {
+            throw new BadRequestException("Billing", "ID");
+        }
         return billingRepository.save(billing);
     }
 
     @Override
     public Billing getBillingById(Integer id) {
-        Optional<Billing> billing = billingRepository.findById(id);
-        return billing.orElse(null);
+        return billingRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Billing", "ID", id));
     }
 
     @Override
     public void deleteBilling(Integer id) {
+        if (!billingRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Billing", "ID", id);
+        }
         billingRepository.deleteById(id);
     }
 
     @Override
     public List<Billing> getAllBillings() {
-        return billingRepository.findAll(); // Fetch all billing records from the repository
+        return billingRepository.findAll();
     }
 }

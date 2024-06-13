@@ -2,6 +2,8 @@ package com.example.Hotel.services.imp;
 
 import com.example.Hotel.entities.Employee;
 import com.example.Hotel.entities.Reservation;
+import com.example.Hotel.exception.BadRequestException;
+import com.example.Hotel.exception.ResourceNotFoundException;
 import com.example.Hotel.repositories.EmployeeRepository;
 import com.example.Hotel.repositories.ReservationRepository;
 import com.example.Hotel.services.EmployeeService;
@@ -16,24 +18,30 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
     private ReservationRepository reservationRepository;
-
-
 
     @Override
     public Employee createEmployee(Employee employee) {
+        if (employee == null || employee.getName() == null) {
+            throw new BadRequestException("Employee", "Employee details");
+        }
         return employeeRepository.save(employee);
     }
 
     @Override
     public Employee updateEmployee(Employee employee) {
+        if (employee == null || employee.getId() == null) {
+            throw new BadRequestException("Employee", "ID");
+        }
         return employeeRepository.save(employee);
     }
 
     @Override
     public Employee getEmployeeById(Integer id) {
-        Optional<Employee> employee = employeeRepository.findById(id);
-        return employee.orElse(null);
+        return employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee", "ID", id));
     }
 
     @Override
@@ -43,22 +51,23 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void deleteEmployee(Integer id) {
+        if (!employeeRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Employee", "ID", id);
+        }
         employeeRepository.deleteById(id);
     }
+
     @Override
     public Reservation updateReservationStatus(Integer reservationId, String newStatus) {
-        Optional<Reservation> optionalReservation = reservationRepository.findById(reservationId);
-        if (optionalReservation.isPresent()) {
-            Reservation reservation = optionalReservation.get();
-            // Check if the user is an employee before updating the status
-            // For example, you can add a check here based on the logged-in user's role
-            // For now, let's assume the user is an employee
-            reservation.setStatus(newStatus);
-            return reservationRepository.save(reservation);
-        } else {
-            // Handle case when reservation is not found
-            return null;
+        if (newStatus == null || newStatus.isEmpty()) {
+            throw new BadRequestException("Reservation", "Status");
         }
-    }
 
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new ResourceNotFoundException("Reservation", "ID", reservationId));
+
+        // Assuming there's a check to ensure the user is an employee
+        reservation.setStatus(newStatus);
+        return reservationRepository.save(reservation);
+    }
 }

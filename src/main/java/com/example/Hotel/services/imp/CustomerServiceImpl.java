@@ -1,6 +1,8 @@
 package com.example.Hotel.services.imp;
 
 import com.example.Hotel.entities.Customer;
+import com.example.Hotel.exception.BadRequestException;
+import com.example.Hotel.exception.ResourceNotFoundException;
 import com.example.Hotel.repositories.CustomerRepository;
 import com.example.Hotel.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +19,24 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer registerCustomer(Customer customer) {
+        if (customer == null || customer.getName() == null || customer.getPhoneNumber() == null) {
+            throw new BadRequestException("Customer", "Customer details");
+        }
         return customerRepository.save(customer);
     }
 
     @Override
     public Customer updateCustomer(Customer customer) {
+        if (customer == null || customer.getId() == null) {
+            throw new BadRequestException("Customer", "ID");
+        }
         return customerRepository.save(customer);
     }
 
     @Override
     public Customer getCustomerById(Integer id) {
-        Optional<Customer> customer = customerRepository.findById(id);
-        return customer.orElse(null);
+        return customerRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer", "ID", id));
     }
 
     @Override
@@ -38,6 +46,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void deleteCustomer(Integer id) {
+        if (!customerRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Customer", "ID", id);
+        }
         customerRepository.deleteById(id);
     }
 }
