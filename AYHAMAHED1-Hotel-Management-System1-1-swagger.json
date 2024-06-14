@@ -1,0 +1,500 @@
+{
+  "openapi" : "3.1.0",
+  "info" : {
+    "title" : "Hotel Management API",
+    "version" : "1",
+    "description" : "API documentation for the Hotel Management system"
+  },
+  "tags" : [ {
+    "name" : "Auth",
+    "description" : "Authentication related endpoints"
+  }, {
+    "name" : "Billing",
+    "description" : "Billing related endpoints"
+  }, {
+    "name" : "Customer",
+    "description" : "Customer related endpoints"
+  }, {
+    "name" : "Employee",
+    "description" : "Employee related endpoints"
+  }, {
+    "name" : "HouseKeeping",
+    "description" : "Housekeeping related endpoints"
+  }, {
+    "name" : "Reservation",
+    "description" : "Reservation related endpoints"
+  }, {
+    "name" : "ReservationRoom",
+    "description" : "Reservation Room related endpoints"
+  }, {
+    "name" : "Room",
+    "description" : "Room related endpoints"
+  }, {
+    "name" : "RoomFeatures",
+    "description" : "Room Features related endpoints"
+  }, {
+    "name" : "RoomFeaturesRelation",
+    "description" : "Room Features Relation related endpoints"
+  }, {
+    "name" : "Task",
+    "description" : "Task related endpoints"
+  }, {
+    "name" : "User",
+    "description" : "User related endpoints"
+  }, {
+    "name" : "TaskHouseKeeping",
+    "description" : "Task HouseKeeping related endpoints"
+  } ],
+  "paths" : {
+    "/auth/register" : {
+      "post" : {
+        "tags" : [ "Auth" ],
+        "summary" : "Register a new user",
+        "requestBody" : {
+          "description" : "User object that needs to be registered",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful registration",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auth/login" : {
+      "post" : {
+        "tags" : [ "Auth" ],
+        "summary" : "Log in a user",
+        "requestBody" : {
+          "description" : "User credentials",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful login",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Login successful"
+                }
+              }
+            }
+          },
+          "401" : {
+            "description" : "Invalid credentials",
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "type" : "string",
+                  "example" : "Invalid credentials"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/billings" : {
+      "post" : {
+        "tags" : [ "Billing" ],
+        "summary" : "Create a new billing",
+        "requestBody" : {
+          "description" : "Billing object that needs to be created",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Billing"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful billing creation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Billing"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Billing" ],
+        "summary" : "Update an existing billing",
+        "requestBody" : {
+          "description" : "Billing object that needs to be updated",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Billing"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful billing update",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Billing"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "Billing" ],
+        "summary" : "Get all billings",
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of billings",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Billing"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/billings/{id}" : {
+      "get" : {
+        "tags" : [ "Billing" ],
+        "summary" : "Get billing by ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of billing",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Billing"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Billing" ],
+        "summary" : "Delete billing by ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successful deletion of billing"
+          }
+        }
+      }
+    },
+    "/customers" : {
+      "post" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Register a new customer",
+        "requestBody" : {
+          "description" : "Customer object that needs to be registered",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Customer"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful customer registration",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Customer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Get all customers",
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of customers",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Customer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Update an existing customer",
+        "requestBody" : {
+          "description" : "Customer object that needs to be updated",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Customer"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful customer update",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Customer"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers/{id}" : {
+      "get" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Get customer by ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of customer",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Customer"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Customer" ],
+        "summary" : "Delete customer by ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successful deletion of customer"
+          }
+        }
+      }
+    },
+    "/employees" : {
+      "post" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Create a new employee",
+        "requestBody" : {
+          "description" : "Employee object that needs to be created",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Employee"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful employee creation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Get all employees",
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of employees",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/Employee"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Update an existing employee",
+        "requestBody" : {
+          "description" : "Employee object that needs to be updated",
+          "required" : true,
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Employee"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Successful employee update",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/employees/{id}" : {
+      "get" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Get employee by ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful retrieval of employee",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Employee"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Delete employee by ID",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "204" : {
+            "description" : "Successful deletion of employee"
+          }
+        }
+      }
+    },
+    "/employees/confirm/{id}" : {
+      "put" : {
+        "tags" : [ "Employee" ],
+        "summary" : "Confirm a reservation by employee",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Successful reservation confirmation",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Reservation"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
