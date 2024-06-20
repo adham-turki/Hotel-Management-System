@@ -135,6 +135,9 @@ The reservation resource handles booking details, linking each reservation to a 
 - feature-name: Name of the feature.
 - Description:
   The room-features resource lists all possible features a room can have, such as "Wi-Fi," "Air Conditioning," "Ocean View," etc.
+#Database:
+-![image](https://github.com/adham-turki/Hotel-management-System/assets/140730348/87b8f787-2643-473b-ae55-ac604e0e70db)
+
   # Docker
   - First we make a docker file .
   - Then we make the coker compose
