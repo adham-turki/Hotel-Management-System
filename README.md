@@ -136,5 +136,13 @@ The reservation resource handles booking details, linking each reservation to a 
 - Description:
   The room-features resource lists all possible features a room can have, such as "Wi-Fi," "Air Conditioning," "Ocean View," etc.
   #Docker
-  https://hub.docker.com/repository/docker/adhamturki/hotel/general
+  - First we make a docker file .
+  - Then we make the coker compose
+  - Clean the maven and install the target
+  - push the image into the dockerhub repositry using these commands:
+  - docker tag hotel-app adhamturki/hotel:v1.0
+  - docker login
+  - docker push adhamturki/hotel:v1.0
+  - Then run the image from IDE or the docker app
+ -  https://hub.docker.com/repository/docker/adhamturki/hotel/general
   
