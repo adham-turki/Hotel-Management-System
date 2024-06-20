@@ -16,6 +16,12 @@
 - type: Type of user (e.g., admin, customer, employee).
 - Description:
 The user resource manages the authentication and authorization of users within the system. It includes essential details like email, password, account status, and user type.
+- API Endpoints:
+ - GET /users: Retrieve a list of users.
+ - GET /users/{id}: Retrieve a specific user by ID.
+ - POST /users: Create a new user.
+ - PUT /users/{id}: Update an existing user.
+ - DELETE /users/{id}: Delete a user.
 
 2. Customer
 - Table: customer
@@ -38,6 +44,12 @@ The customer resource stores information specific to customers making reservatio
 - phone-number: Contact phone number of the employee.
 - Description:
 The employee resource contains information about hotel staff members. It connects to the user table for authentication purposes.
+- API Endpoints:
+ - GET /customers: Retrieve a list of customers.
+ - GET /customers/{id}: Retrieve a specific customer by ID.
+ - POST /customers: Create a new customer.
+ - PUT /customers/{id}: Update an existing customer.
+ - DELETE /customers/{id}: Delete a customer.
 
 - 4. Reservation
 - Table: reservation
@@ -53,7 +65,13 @@ The employee resource contains information about hotel staff members. It connect
 - check-out-date: Scheduled check-out date.
 - Description:
 The reservation resource handles booking details, linking each reservation to a specific customer and tracking the reservation status and dates.
+- API Endpoints:
 
+ - GET /reservations: Retrieve a list of reservations.
+ - GET /reservations/{id}: Retrieve a specific reservation by ID.
+ - POST /reservations: Create a new reservation.
+ - PUT /reservations/{id}: Update an existing reservation.
+ - DELETE /reservations/{id}: Cancel a reservation.
 5. Room
 - Table: room
 
@@ -68,7 +86,13 @@ The reservation resource handles booking details, linking each reservation to a 
 - features: Additional features of the room.
 - Description:
 - The room resource manages the details of each room available in the hotel, including availability, type, pricing, and capacity.
+- API Endpoints:
 
+ - GET /rooms: Retrieve a list of rooms.
+ - GET /rooms/{id}: Retrieve a specific room by ID.
+ - POST /rooms: Create a new room.
+ - PUT /rooms/{id}: Update an existing room.
+ - DELETE /rooms/{id}: Delete a room.
 6. Reservation-Room
 - Table: reservation-room
 
@@ -78,7 +102,13 @@ The reservation resource handles booking details, linking each reservation to a 
 - reservation-id (Primary Key, Foreign Key): Links to the reservation table.
 - Description:
   The reservation-room resource maps the relationship between reservations and rooms, indicating which rooms are booked for each reservation.
+- API Endpoints:
 
+ - GET /reservation-rooms: Retrieve a list of reservation-room relationships.
+ - GET /reservation-rooms/{room-id}/{reservation-id}: Retrieve a specific reservation-room relationship.
+ - POST /reservation-rooms: Create a new reservation-room relationship.
+ - PUT /reservation-rooms/{room-id}/{reservation-id}: Update an existing reservation-room relationship.
+ - DELETE /reservation-rooms/{room-id}/{reservation-id}: Delete a reservation-room relationship.
 7. Billing
 - Table: billing
 
@@ -91,7 +121,13 @@ The reservation resource handles booking details, linking each reservation to a 
 - date: Billing date.
 - Description:
   The billing resource manages financial transactions related to reservations, tracking amounts and payment statuses.
+- API Endpoints:
 
+ - GET /billings: Retrieve a list of billing records.
+ - GET /billings/{id}: Retrieve a specific billing record by ID.
+ - POST /billings: Create a new billing record.
+ - PUT /billings/{id}: Update an existing billing record.
+ - DELETE /billings/{id}: Delete a billing record.
 8. Housekeeping
 - Table: house-keeping
 
@@ -104,7 +140,13 @@ The reservation resource handles booking details, linking each reservation to a 
 - status: Status of the housekeeping task.
 - Description:
   The housekeeping resource tracks cleaning and maintenance tasks for rooms, assigning tasks to employees and monitoring task status.
+- API Endpoints:
 
+ - GET /housekeepings: Retrieve a list of housekeeping records.
+ - GET /housekeepings/{id}: Retrieve a specific housekeeping record by ID.
+ - POST /housekeepings: Create a new housekeeping record.
+ - PUT /housekeepings/{id}: Update an existing housekeeping record.
+ - DELETE /housekeepings/{id}: Delete a housekeeping record.
 9. Tasks
 - Table: tasks
 
@@ -115,7 +157,13 @@ The reservation resource handles booking details, linking each reservation to a 
 - description: Description of the task.
 - Description:
   The tasks resource defines various housekeeping tasks that need to be performed, such as cleaning, maintenance, and restocking supplies.
+- API Endpoints:
 
+ - GET /tasks: Retrieve a list of tasks.
+ - GET /tasks/{id}: Retrieve a specific task by ID.
+ - POST /tasks: Create a new task.
+ - PUT /tasks/{id}: Update an existing task.
+ - DELETE /tasks/{id}: Delete a task.
 10. Room-Features
 - Table: room-features
 
@@ -125,7 +173,13 @@ The reservation resource handles booking details, linking each reservation to a 
 - features-id (Primary Key, Foreign Key): Links to the room-features table.
 - Description:
   The room-features resource maps additional features to specific rooms, enhancing room descriptions with various amenities.
+- API Endpoints:
 
+ - GET /room-features: Retrieve a list of room-features relationships.
+ - GET /room-features/{room-id}/{features-id}: Retrieve a specific room-features relationship.
+ - POST /room-features: Create a new room-features relationship.
+ - PUT /room-features/{room-id}/{features-id}: Update an existing room-features relationship.
+ - DELETE /room-features/{room-id}/{features-id}: Delete a room-features relationship.
 11. Room Features
 - Table: room-features
 
@@ -135,6 +189,14 @@ The reservation resource handles booking details, linking each reservation to a 
 - feature-name: Name of the feature.
 - Description:
   The room-features resource lists all possible features a room can have, such as "Wi-Fi," "Air Conditioning," "Ocean View," etc.
+- API Endpoints:
+
+ - GET /features: Retrieve a list of features.
+ - GET /features/{id}: Retrieve a specific feature by ID.
+ - POST /features: Create a new feature.
+ - PUT /features/{id}: Update an existing feature.
+ - DELETE /features/{id}: Delete a feature.
+Database
 #Database:
 -![image](https://github.com/adham-turki/Hotel-management-System/assets/140730348/87b8f787-2643-473b-ae55-ac604e0e70db)
 
